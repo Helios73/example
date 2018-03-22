@@ -5,7 +5,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Laravel</title>
+        <title>Library</title>
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
@@ -65,31 +65,42 @@
         </style>
     </head>
     <body>
-        <div class="flex-center position-ref full-height">
-            @if (Route::has('login'))
-                <div class="top-right links">
-                    @auth
-                        <a href="{{ url('/home') }}">Home</a>
-                    @else
-                        <a href="{{ route('login') }}">Login</a>
-                        <a href="{{ route('register') }}">Register</a>
-                    @endauth
-                </div>
-            @endif
-
-            <div class="content">
-                <div class="title m-b-md">
-                    Laravel
-                </div>
-
-                <div class="links">
-                    <a href="https://laravel.com/docs">Documentation</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
-                </div>
-            </div>
+    <header>
+        <div>
+            <h1>LIBRARY</h1>
+            <a href="{{ route('books.index') }}">Books</a>
+            <a href="{{ route('authors.index') }}">Authors</a>
         </div>
+    </header>
+    <div>
+        <form action="{{ route('search') }}" method="GET">
+            <input name="q" type="text">
+            <input type="submit" value="Search">
+        </form>
+        @if(false)
+        <table>
+            <thead>
+                <tr>
+                    <td>Name Book</td>
+                    <td>Description</td>
+                    <td>Authors</td>
+                </tr>
+            </thead>
+            <tbody>
+            @foreach($books as $book)
+                <tr>
+                    <td>{{ $book['name_book'] }}</td>
+                    <td>{{ $book['description'] }}</td>
+                    <td>
+                        @foreach($book->authors as $author)
+                            {{ $author->getFullName() }}
+                        @endforeach
+                    </td>
+                </tr>
+            @endforeach
+            </tbody>
+        </table>
+        @endif
+    </div>
     </body>
 </html>
